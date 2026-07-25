@@ -1,0 +1,31 @@
+# Source data is deliberately kept out of git history.
+#
+# The address book holds real names, emails and phone numbers. Anything
+# committed is permanent and effectively impossible to purge from clones and
+# forks, so the raw workbook and everything derived from it stays on local disk.
+# The pipeline is versioned; the data it runs on is not.
+
+# Spreadsheets anywhere in the tree.
+*.xlsx
+*.xlsm
+*.xlsb
+*.xls
+*.csv
+
+# Everything under data/, except the folder documentation. The directory
+# entries have to be re-included first or git will not descend far enough to
+# see the README.
+data/**
+!data/
+!data/**/
+!data/**/README.md
+
+# Generated output.
+reports/
+output/
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store

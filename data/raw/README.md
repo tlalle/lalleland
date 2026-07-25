@@ -5,14 +5,21 @@ discards merged cells, hidden rows and columns, cell fill colours, notes, data
 validation and filter state, all of which carry meaning in a spreadsheet that has
 been maintained by hand.
 
-Files in this folder are **immutable**. Nothing in the pipeline writes to them.
-Profiling opens them read-only and checksums them before and after to prove the
-original is unchanged; all output is written elsewhere.
+**This folder is not committed.** `.gitignore` excludes its contents so that real
+names, emails and phone numbers never enter git history, where they would be
+permanent and effectively unpurgeable from clones and forks. The workbook lives
+on local disk only; the pipeline that reads it is what gets versioned.
 
-Do not clean or tidy a file before committing it. The inconsistencies are the
+Files here are immutable. Nothing in the pipeline writes to them. Profiling opens
+them read-only and checksums them before and after to prove the original is
+unchanged; all output is written to `reports/`, which is also ignored.
+
+Do not clean or tidy a file before dropping it here. The inconsistencies are the
 specification — removing them hides the exact cases that break the import later.
 
-Note that this folder's contents become part of git history permanently. If the
-workbook holds real names, emails or phone numbers, confirm that is acceptable
-for this repository before pushing, or commit a copy with personal details
-scrambled and the structure left fully intact.
+One thing this arrangement does **not** do: file contents are still sent to the
+model provider for inference when an agent reads them. Keeping data out of git
+removes the storage and distribution exposure, not the processing one. If the
+real contact details should never be processed by a model at all, build and test
+against a copy with personal details scrambled and structure left intact, and run
+the final pass over real data without an agent in the loop.
